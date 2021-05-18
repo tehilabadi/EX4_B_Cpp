@@ -9,19 +9,19 @@ namespace pandemic{
         if(city==myCity){
             Player::treat(city);
         }
-        else if(game.world[city]==0){
+        else if(game.getDet()[city].num==0){
             throw "there is nothing to treat viro";
         }
-        else if(cards[game.det[city].color][city]==0){
+        else if(cards[game.getDet()[city].color][city]==0){
             throw "there isn't matching card viro";
         }
-        else if(game.cures[game.det[city].color]){
-            game.world[city]=0;
-            cards[game.det[city].color][city]=0;
+        else if(game.getCures()[game.getDet()[city].color]){
+            game.getDet()[city].num=0;
+            cards[game.getDet()[city].color][city]=0;
         }
         else{
-            game.world[city]--;
-            cards[game.det[city].color][city]=0;
+            game.getDet()[city].num--;
+            cards[game.getDet()[city].color][city]=0;
         }
         return *this;
     }

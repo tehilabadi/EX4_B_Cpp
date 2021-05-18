@@ -6,19 +6,19 @@ using namespace std;
 
 namespace pandemic{
     FieldDoctor& FieldDoctor::treat(City city){
-        if(game.world[city]==0){
+        if(game.getDet()[city].num==0){
             throw "nothing to treat Doc";
         }
-        if(city!=myCity&&(game.det[myCity].ne.find(city)==game.det[myCity].ne.end())&&
-        game.det[city].ne.find(myCity)==game.det[city].ne.end()){
+        if(city!=myCity&&(game.getDet()[myCity].ne.find(city)==game.getDet()[myCity].ne.end())&&
+        game.getDet()[city].ne.find(myCity)==game.getDet()[city].ne.end()){
             throw "can't treat Doc";
         }
         
-            if(game.cures[game.det[city].color]){
-                game.world[city]=0;
+            if(game.getCures()[game.getDet()[city].color]){
+                game.getDet()[city].num=0;
             }
             else{
-                game.world[city]--;
+                game.getDet()[city].num--;
             }
         
         return *this;

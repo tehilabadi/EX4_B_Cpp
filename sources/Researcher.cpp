@@ -6,7 +6,7 @@ using namespace std;
 
 namespace pandemic{
     Researcher& Researcher::discover_cure(Color color){
-        if(game.cures[color]){
+        if(game.getCures()[color]){
         return  *this;
         }
         int count = 0;
@@ -18,7 +18,7 @@ namespace pandemic{
         if(count<num){
             throw "not enough cards reasercher";
         }
-        game.cures[color]=true;
+        game.getCures()[color]=true;
         int i = 0;
         for(auto a:cards[color]){
             if(i<num){

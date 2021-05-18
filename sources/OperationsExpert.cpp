@@ -7,7 +7,7 @@ using namespace std;
 namespace pandemic{
    
     OperationsExpert& OperationsExpert::build(){
-        game.det[myCity].station=true;     
+        game.getDet()[myCity].station=true;     
         return *this;
     }
     string OperationsExpert::role(){

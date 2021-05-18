@@ -8,8 +8,8 @@ namespace pandemic{
     class Medic:public Player{
         public:
         Medic(Board &board, City city):Player(board,city){
-            if(game.cures[game.det[myCity].color]){
-            game.world[myCity]=0;
+            if(game.getCures()[game.getDet()[myCity].color]){
+            game.getDet()[city].num=0;
         }
         }
         Medic& treat(City city)override;

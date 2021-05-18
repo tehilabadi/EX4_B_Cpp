@@ -10,7 +10,7 @@ namespace pandemic{
         if(city==myCity){
                 throw "same city";
         }
-        if(!game.det[myCity].station&&(cards[game.det[city].color][city]==0)){
+        if(!game.getDet()[myCity].station&&(cards[game.getDet()[city].color][city]==0)){
             throw "therer is no station Dispatcher";
         }
         myCity = city;

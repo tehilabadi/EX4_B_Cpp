@@ -15,13 +15,13 @@ namespace pandemic{
                 }
             }
         }
-        if(!game.det[myCity].station){
+        if(!game.getDet()[myCity].station){
                 throw "can't discover GEN";
             }
         if(count<num){
                 throw "not enough cards";
             }    
-            if(!game.cures[color]){
+            if(!game.getCures()[color]){
                 int i = 0;
                 for(auto &a:cards){
                     for(auto &b:a.second){

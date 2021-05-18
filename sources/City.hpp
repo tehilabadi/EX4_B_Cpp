@@ -19,7 +19,7 @@ namespace pandemic{
         City city;
         Color color;
         std::string name;
-        int num;
+        int num=0;
         bool station = false;
         std::set<City> ne;
     };

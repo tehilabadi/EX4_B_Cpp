@@ -7,10 +7,10 @@ using namespace std;
 namespace pandemic{
     
     Medic& Medic::treat(City city){
-        if(game.world[myCity]==0){
+        if(game.getDet()[city].num==0){
             throw "there is nothing to treat medic";
         }
-        game.world[myCity]=0;
+        game.getDet()[city].num=0;
         return *this;
     }
     string Medic::role(){

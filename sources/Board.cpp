@@ -8,36 +8,18 @@ namespace pandemic{
 
     
     Board::Board(){
-        for(auto a:cures){
-            a.second = false;
-        }
         fillCures();
         fillTheMap();
         fillTheN();
-        for(auto &a:world){
-            a.second = 0;
-        }
-
-
     }
 
-    // unordered_map<Color,bool> Board::getCures(){
-    //     return cures;
-    // }
-    // unordered_map<City,int> Board::getWorld(){
-    //     return world;
-    // }
-    // unordered_map<City,cityDetails> Board::getDet(){
-    //     return det;
-    // }
-
     int& Board::operator[](const City city){
-        return world[city];
+        return det[city].num;
     }
 
     bool Board::is_clean(){
-        for(pair<City,int> a:world){
-            if(a.second!=0){
+        for(auto a:det){
+            if(a.second.num!=0){
                 return false;
             }
         }
@@ -50,10 +32,60 @@ namespace pandemic{
         }
     }
     std::ostream& operator<< (std::ostream& output, const Board& c){
+        string black;
+        cout<<"_____________________pandemic board_____________________"<<endl;
+        for(auto temp:c.cures){
+            switch(temp.first){
+                case Color::Black:
+                    cout<<"Black cities:"<<temp.second<<endl;
+                    for(auto a:c.det){
+                        if(a.second.color==Color::Black){
+                            cout<<a.second.name<<" number of cubes: "<<a.second.num<<" station: "<<a.second.station<<endl;
+                        }
+                    }
+                    break;
+                case Color::Blue:
+                    cout<<"Blue cities:"<<temp.second<<endl;
+                    for(auto a:c.det){
+                        if(a.second.color==Color::Blue){
+                            cout<<a.second.name<<" number of cubes: "<<a.second.num<<" station: "<<a.second.station<<endl;
+                        }
+                    }
+                    break;
+                case Color::Red:
+                    cout<<"Red cities:"<<temp.second<<endl;
+                    for(auto a:c.det){
+                        if(a.second.color==Color::Red){
+                            cout<<a.second.name<<" number of cubes: "<<a.second.num<<" station: "<<a.second.station<<endl;
+                        }
+                    }
+                    break;
+                case Color::Yellow:
+                    cout<<"Yellow cities:"<<temp.second<<endl;
+                    for(auto a:c.det){
+                        if(a.second.color==Color::Yellow){
+                            cout<<a.second.name<<" number of cubes: "<<a.second.num<<" station: "<<a.second.station<<endl;
+                        }
+                    }
+                    break;
+            }   
+        
+        }
         return output;
     }
-    std::istream& operator>> (std::istream& input , Board& c){
-        return input;
+
+
+    unordered_map<Color,bool>& Board::getCures(){
+        return cures;
+    }
+    unordered_map<City,cityDetails>& Board::getDet(){
+        return det;
+    }
+    unordered_map<Color,bool> Board::getCures2(){
+        return cures;
+    }
+    unordered_map<City,cityDetails> Board::getDet2(){
+        return det;
     }
 
     void Board::fillCures(){
@@ -249,7 +281,6 @@ namespace pandemic{
         det[City::Riyadh].ne.insert(City::Cairo);
         det[City::Riyadh].ne.insert(City::Karachi);
 
-
         det[City::SanFrancisco].ne.insert(City::LosAngeles);
         det[City::SanFrancisco].ne.insert(City::Chicago);
         det[City::SanFrancisco].ne.insert(City::Tokyo);
@@ -266,13 +297,11 @@ namespace pandemic{
         det[City::Seoul].ne.insert(City::Shanghai);
         det[City::Seoul].ne.insert(City::Tokyo);
 
-
         det[City::Shanghai].ne.insert(City::Beijing);
         det[City::Shanghai].ne.insert(City::HongKong);
         det[City::Shanghai].ne.insert(City::Taipei);
         det[City::Shanghai].ne.insert(City::Seoul);
         det[City::Shanghai].ne.insert(City::Tokyo);
-
 
         det[City::StPetersburg].ne.insert(City::Essen);
         det[City::StPetersburg].ne.insert(City::Istanbul);
@@ -304,197 +333,197 @@ namespace pandemic{
     }
 
 void Board::fillTheMap(){
-            cityDetails AlgiersD(City::Algiers,Color::Black, "Algiers" );
-            pair<City,cityDetails> a(City::Algiers,AlgiersD);
-            det.insert(a);
+        cityDetails AlgiersD(City::Algiers,Color::Black, "Algiers" );
+        pair<City,cityDetails> a(City::Algiers,AlgiersD);
+        det.insert(a);
 
-            cityDetails AtlantaD(City::Atlanta,Color::Blue, "Atlanta" );
-            a={City::Atlanta,AtlantaD};
-            det.insert(a);
+        cityDetails AtlantaD(City::Atlanta,Color::Blue, "Atlanta" );
+        a={City::Atlanta,AtlantaD};
+        det.insert(a);
 
-            cityDetails BaghdadD(City::Baghdad,Color::Black, "Baghdad" );
-            a={City::Baghdad,BaghdadD};
-            det.insert(a);
+        cityDetails BaghdadD(City::Baghdad,Color::Black, "Baghdad" );
+        a={City::Baghdad,BaghdadD};
+        det.insert(a);
 
-            cityDetails BangkokD(City::Bangkok,Color::Red, "Bangkok" );
-            a={City::Bangkok,BangkokD};
-            det.insert(a);
+        cityDetails BangkokD(City::Bangkok,Color::Red, "Bangkok" );
+        a={City::Bangkok,BangkokD};
+        det.insert(a);
 
-            cityDetails Beijing(City::Beijing,Color::Red, "Beijing" );
-            a={City::Beijing,Beijing};
-            det.insert(a);
+        cityDetails Beijing(City::Beijing,Color::Red, "Beijing" );
+        a={City::Beijing,Beijing};
+        det.insert(a);
 
-            cityDetails Bogota(City::Bogota,Color::Yellow, "Bogota" );
-            a={City::Bogota,Bogota};
-            det.insert(a);
+        cityDetails Bogota(City::Bogota,Color::Yellow, "Bogota" );
+        a={City::Bogota,Bogota};
+        det.insert(a);
 
-            cityDetails BuenosAires(City::BuenosAires,Color::Yellow, "BuenosAires" );
-            a={City::BuenosAires,BuenosAires};
-            det.insert(a);
-            
-            cityDetails Cairo(City::Cairo,Color::Black, "Cairo" );
-            a={City::Cairo,Cairo};
-            det.insert(a);
+        cityDetails BuenosAires(City::BuenosAires,Color::Yellow, "BuenosAires" );
+        a={City::BuenosAires,BuenosAires};
+        det.insert(a);
+        
+        cityDetails Cairo(City::Cairo,Color::Black, "Cairo" );
+        a={City::Cairo,Cairo};
+        det.insert(a);
 
-            cityDetails Chennai(City::Chennai,Color::Black, "Chennai" );
-            a={City::Chennai,Chennai};
-            det.insert(a);
+        cityDetails Chennai(City::Chennai,Color::Black, "Chennai" );
+        a={City::Chennai,Chennai};
+        det.insert(a);
 
-            cityDetails Chicago(City::Chicago,Color::Blue, "Chicago" );
-            a={City::Chicago,Chicago};
-            det.insert(a);
+        cityDetails Chicago(City::Chicago,Color::Blue, "Chicago" );
+        a={City::Chicago,Chicago};
+        det.insert(a);
 
-            cityDetails Delhi(City::Delhi,Color::Black, "Delhi" );
-            a={City::Delhi,Delhi};
-            det.insert(a);
+        cityDetails Delhi(City::Delhi,Color::Black, "Delhi" );
+        a={City::Delhi,Delhi};
+        det.insert(a);
 
-            cityDetails Essen(City::Essen,Color::Blue, "Essen" );
-            a={City::Essen,Essen};
-            det.insert(a);
+        cityDetails Essen(City::Essen,Color::Blue, "Essen" );
+        a={City::Essen,Essen};
+        det.insert(a);
 
-            cityDetails HoChiMinhCity(City::HoChiMinhCity,Color::Red, "HoChiMinhCity" );
-            a={City::HoChiMinhCity,HoChiMinhCity};
-            det.insert(a);
+        cityDetails HoChiMinhCity(City::HoChiMinhCity,Color::Red, "HoChiMinhCity" );
+        a={City::HoChiMinhCity,HoChiMinhCity};
+        det.insert(a);
 
-            cityDetails HongKong(City::HongKong,Color::Red, "HongKong" );
-            a={City::HongKong,HongKong};
-            det.insert(a);
+        cityDetails HongKong(City::HongKong,Color::Red, "HongKong" );
+        a={City::HongKong,HongKong};
+        det.insert(a);
 
-            cityDetails Istanbul(City::Istanbul,Color::Black, "Istanbul" );
-            a={City::Istanbul,Istanbul};
-            det.insert(a);
+        cityDetails Istanbul(City::Istanbul,Color::Black, "Istanbul" );
+        a={City::Istanbul,Istanbul};
+        det.insert(a);
 
-            cityDetails Jakarta(City::Jakarta,Color::Red, "Jakarta" );
-            a={City::Jakarta,Jakarta};
-            det.insert(a);
+        cityDetails Jakarta(City::Jakarta,Color::Red, "Jakarta" );
+        a={City::Jakarta,Jakarta};
+        det.insert(a);
 
-            cityDetails Johannesburg(City::Johannesburg,Color::Yellow, "Johannesburg" );
-            a={City::Johannesburg,Johannesburg};
-            det.insert(a);
+        cityDetails Johannesburg(City::Johannesburg,Color::Yellow, "Johannesburg" );
+        a={City::Johannesburg,Johannesburg};
+        det.insert(a);
 
-            cityDetails Karachi(City::Karachi,Color::Black, "Karachi" );
-            a={City::Karachi,Karachi};
-            det.insert(a);
+        cityDetails Karachi(City::Karachi,Color::Black, "Karachi" );
+        a={City::Karachi,Karachi};
+        det.insert(a);
 
-            cityDetails Khartoum(City::Khartoum,Color::Yellow, "Khartoum" );
-            a={City::Khartoum,Khartoum};
-            det.insert(a);
+        cityDetails Khartoum(City::Khartoum,Color::Yellow, "Khartoum" );
+        a={City::Khartoum,Khartoum};
+        det.insert(a);
 
-            cityDetails Kinshasa(City::Kinshasa,Color::Yellow, "Kinshasa" );
-            a={City::Kinshasa,Kinshasa};
-            det.insert(a);
+        cityDetails Kinshasa(City::Kinshasa,Color::Yellow, "Kinshasa" );
+        a={City::Kinshasa,Kinshasa};
+        det.insert(a);
 
-            cityDetails Kolkata(City::Kolkata,Color::Black, "Kolkata" );
-            a={City::Kolkata,Kolkata};
-            det.insert(a);
+        cityDetails Kolkata(City::Kolkata,Color::Black, "Kolkata" );
+        a={City::Kolkata,Kolkata};
+        det.insert(a);
 
-            cityDetails Lagos(City::Lagos,Color::Yellow, "Lagos" );
-            a={City::Lagos,Lagos};
-            det.insert(a);
+        cityDetails Lagos(City::Lagos,Color::Yellow, "Lagos" );
+        a={City::Lagos,Lagos};
+        det.insert(a);
 
-            cityDetails Lima(City::Lima,Color::Yellow, "Lima" );
-            a={City::Lima,Lima};
-            det.insert(a);
+        cityDetails Lima(City::Lima,Color::Yellow, "Lima" );
+        a={City::Lima,Lima};
+        det.insert(a);
 
-            cityDetails London(City::London,Color::Blue, "London" );
-            a={City::London,London};
-            det.insert(a);
+        cityDetails London(City::London,Color::Blue, "London" );
+        a={City::London,London};
+        det.insert(a);
 
-            cityDetails LosAngeles(City::LosAngeles,Color::Yellow, "LosAngeles" );
-            a={City::LosAngeles,LosAngeles};
-            det.insert(a);
+        cityDetails LosAngeles(City::LosAngeles,Color::Yellow, "LosAngeles" );
+        a={City::LosAngeles,LosAngeles};
+        det.insert(a);
 
-            cityDetails Madrid(City::Madrid,Color::Blue, "Madrid" );
-            a={City::Madrid,Madrid};
-            det.insert(a);
+        cityDetails Madrid(City::Madrid,Color::Blue, "Madrid" );
+        a={City::Madrid,Madrid};
+        det.insert(a);
 
-            cityDetails Manila(City::Manila,Color::Red, "Manila" );
-            a={City::Manila,Manila};
-            det.insert(a);
+        cityDetails Manila(City::Manila,Color::Red, "Manila" );
+        a={City::Manila,Manila};
+        det.insert(a);
 
-            cityDetails MexicoCity(City::MexicoCity,Color::Yellow, "MexicoCity" );
-            a={City::MexicoCity,MexicoCity};
-            det.insert(a);
+        cityDetails MexicoCity(City::MexicoCity,Color::Yellow, "MexicoCity" );
+        a={City::MexicoCity,MexicoCity};
+        det.insert(a);
 
-            cityDetails Miami(City::Miami,Color::Yellow, "Miami" );
-            a={City::Miami,Miami};
-            det.insert(a);
+        cityDetails Miami(City::Miami,Color::Yellow, "Miami" );
+        a={City::Miami,Miami};
+        det.insert(a);
 
-            cityDetails Milan(City::Milan,Color::Blue, "Milan" );
-            a={City::Milan,Milan};
-            det.insert(a);
+        cityDetails Milan(City::Milan,Color::Blue, "Milan" );
+        a={City::Milan,Milan};
+        det.insert(a);
 
-            cityDetails Montreal(City::Montreal,Color::Blue, "Montreal" );
-            a={City::Montreal,Montreal};
-            det.insert(a);
+        cityDetails Montreal(City::Montreal,Color::Blue, "Montreal" );
+        a={City::Montreal,Montreal};
+        det.insert(a);
 
-            cityDetails Moscow(City::Moscow,Color::Black, "Moscow" );
-            a={City::Moscow,Moscow};
-            det.insert(a);
+        cityDetails Moscow(City::Moscow,Color::Black, "Moscow" );
+        a={City::Moscow,Moscow};
+        det.insert(a);
 
-            cityDetails Mumbai(City::Mumbai,Color::Black, "Mumbai" );
-            a={City::Mumbai,Mumbai};
-            det.insert(a);
+        cityDetails Mumbai(City::Mumbai,Color::Black, "Mumbai" );
+        a={City::Mumbai,Mumbai};
+        det.insert(a);
 
-            cityDetails NewYork(City::NewYork,Color::Blue, "NewYork" );
-            a={City::NewYork,NewYork};
-            det.insert(a);
+        cityDetails NewYork(City::NewYork,Color::Blue, "NewYork" );
+        a={City::NewYork,NewYork};
+        det.insert(a);
 
-            cityDetails Osaka(City::Osaka,Color::Red, "Osaka" );
-            a={City::Osaka,Osaka};
-            det.insert(a);
+        cityDetails Osaka(City::Osaka,Color::Red, "Osaka" );
+        a={City::Osaka,Osaka};
+        det.insert(a);
 
-            cityDetails Paris(City::Paris,Color::Blue, "Paris" );
-            a={City::Paris,Paris};
-            det.insert(a);
+        cityDetails Paris(City::Paris,Color::Blue, "Paris" );
+        a={City::Paris,Paris};
+        det.insert(a);
 
-            cityDetails Riyadh(City::Riyadh,Color::Black, "Riyadh" );
-            a={City::Riyadh,Riyadh};
-            det.insert(a);
-            
-            cityDetails SanFrancisco(City::SanFrancisco,Color::Blue, "SanFrancisco" );
-            a={City::SanFrancisco,SanFrancisco};
-            det.insert(a);
+        cityDetails Riyadh(City::Riyadh,Color::Black, "Riyadh" );
+        a={City::Riyadh,Riyadh};
+        det.insert(a);
+        
+        cityDetails SanFrancisco(City::SanFrancisco,Color::Blue, "SanFrancisco" );
+        a={City::SanFrancisco,SanFrancisco};
+        det.insert(a);
 
-            cityDetails Santiago(City::Santiago,Color::Yellow, "Santiago" );
-            a={City::Santiago,Santiago};
-            det.insert(a);
+        cityDetails Santiago(City::Santiago,Color::Yellow, "Santiago" );
+        a={City::Santiago,Santiago};
+        det.insert(a);
 
-            cityDetails SaoPaulo(City::SaoPaulo,Color::Yellow, "SaoPaulo" );
-            a={City::SaoPaulo,SaoPaulo};
-            det.insert(a);
+        cityDetails SaoPaulo(City::SaoPaulo,Color::Yellow, "SaoPaulo" );
+        a={City::SaoPaulo,SaoPaulo};
+        det.insert(a);
 
-            cityDetails Seoul(City::Seoul,Color::Red, "Seoul" );
-            a={City::Seoul,Seoul};
-            det.insert(a);
+        cityDetails Seoul(City::Seoul,Color::Red, "Seoul" );
+        a={City::Seoul,Seoul};
+        det.insert(a);
 
-            cityDetails Shanghai(City::Shanghai ,Color::Red, "Shanghai" );
-            a={City::Shanghai,Shanghai};
-            det.insert(a);
+        cityDetails Shanghai(City::Shanghai ,Color::Red, "Shanghai" );
+        a={City::Shanghai,Shanghai};
+        det.insert(a);
 
-            cityDetails StPetersburg(City::StPetersburg ,Color::Blue, "StPetersburg" );
-            a={City::StPetersburg,StPetersburg};
-            det.insert(a);
+        cityDetails StPetersburg(City::StPetersburg ,Color::Blue, "StPetersburg" );
+        a={City::StPetersburg,StPetersburg};
+        det.insert(a);
 
-            cityDetails Sydney(City::Sydney ,Color::Red, "Sydney" );
-            a={City::Sydney,Sydney};
-            det.insert(a);
+        cityDetails Sydney(City::Sydney ,Color::Red, "Sydney" );
+        a={City::Sydney,Sydney};
+        det.insert(a);
 
-            cityDetails Taipei(City::Taipei ,Color::Red, "Taipei" );
-            a={City::Taipei,Taipei};
-            det.insert(a);
+        cityDetails Taipei(City::Taipei ,Color::Red, "Taipei" );
+        a={City::Taipei,Taipei};
+        det.insert(a);
 
-            cityDetails Tehran(City::Tehran ,Color::Black, "Tehran" );
-            a={City::Tehran,Tehran};
-            det.insert(a);
+        cityDetails Tehran(City::Tehran ,Color::Black, "Tehran" );
+        a={City::Tehran,Tehran};
+        det.insert(a);
 
-            cityDetails Tokyo(City::Tokyo ,Color::Red, "Tokyo" );
-            a={City::Tokyo,Tokyo};
-            det.insert(a);
+        cityDetails Tokyo(City::Tokyo ,Color::Red, "Tokyo" );
+        a={City::Tokyo,Tokyo};
+        det.insert(a);
 
-            cityDetails Washington(City::Washington ,Color::Blue, "Washington" );
-            a={City::Washington,Washington};
-            det.insert(a);
-        }
-
+        cityDetails Washington(City::Washington ,Color::Blue, "Washington" );
+        a={City::Washington,Washington};
+        det.insert(a);
+    }
+    
 }
